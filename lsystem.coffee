@@ -79,11 +79,17 @@ class LSystem
         @axiom = hash.axiom
         @rules = hash.rules
         @renderFunctions = hash.renderFunctions
+        @postStep = hash.postStep
+        @preStep = hash.preStep
         @stack = new Stack(@axiom, @rules, @renderFunctions)
         @stack.push new Turtle(new HistoryKeeper())
+        @stepNumber = 0
 
     step: () ->
         buffer = ''
+
+        if @preStep?
+            buffer = @preStep(buffer, @stepNumber)
 
         for i in [0..@axiom.length - 1]
             char = @axiom.charAt i
@@ -95,6 +101,9 @@ class LSystem
             else
                 buffer = buffer + char
         
+        @stepNumber++
+        if @postStep?
+            buffer = @postStep(buffer, @stepNumber)
         return buffer
 
 
@@ -105,23 +114,16 @@ class LSystem
         ctx = canvas.getContext '2d'
         ctx.strokeStyle = '#FFF'
 
+        #console.log @axiom.length
         for i in [0..@axiom.length - 1]
-            char = @axiom[start..i]
-            if char not of @renderFunctions
+            symbol = @axiom[start..i]
+            if symbol not of @renderFunctions
                 continue
-            renderFunc = @renderFunctions[char]
+            renderFunc = @renderFunctions[symbol]
             start = i+1
             renderFunc(@stack)
             n++
-            #console.log n
-            #console.log @stack.peek().historyKeeper.stateHistory.length
-            #console.log '*'
             
-        angle = @stack.peek().historyKeeper.currentAngle/Math.PI*180
-        angle =  angle % 360
-        console.log angle
-        @stack.peek().historyKeeper.saveState('finished')
-
         ctx.setTransform(transformState.zoomLevel, 0, 0, transformState.zoomLevel, transformState.xOffset, transformState.yOffset)
         @
         
@@ -197,7 +199,7 @@ class LSystemView
         if hash?
             @system.axiom = hash
 
-        numIterations = parseInt $("#numIterations").val()
+        numIterations = parseInt $("#numIterations").val() or 1
 
         for num in [1..numIterations]
             @step()
@@ -222,7 +224,7 @@ class LSystemView
         #ctx.lineWidth = 0.1
 
         ctx.setTransform(transformState.zoomLevel, 0, 0, transformState.zoomLevel, transformState.xOffset, transformState.yOffset)
-        ctx.translate(@startingPosition.x, @startingPosition.y)
+        #ctx.translate(@startingPosition.x, @startingPosition.y)
 
         @system.stack.pop()
         @system.stack.push new Turtle(new HistoryKeeper())
@@ -288,6 +290,11 @@ class LSystemView
         return prefix + chunk
         
     cropAxiom: (rec) =>
+        rec = _.clone rec
+        rec.x0 -= @startingPosition.x
+        rec.x1 -= @startingPosition.x
+        rec.y0 -= @startingPosition.y
+        rec.y1 -= @startingPosition.y
         ruleNumber = 0
         historyKeeper = @system.stack.peek().historyKeeper
         anyIntersections = false
@@ -296,7 +303,7 @@ class LSystemView
         chunkEnd = 0
         views = []
         stringPosition = 0
-        while ruleNumber < @system.axiom.length
+        while ruleNumber < @system.axiom.length-1
             ruleName = @system.axiom[stringPosition]
 
             ruleState = historyKeeper.stateHistory[ruleNumber]
@@ -350,9 +357,6 @@ class LSystemView
 class MultiLSystemView extends LSystemView
     constructor: (lsViews) ->
         @lsViews = lsViews
-        for e in lsViews
-            console.log e.system.axiom
-            console.log e.startingPosition
 
     redraw: =>
         canvas = $("#canvas")[0]
@@ -397,9 +401,8 @@ class MultiLSystemView extends LSystemView
 
     cropAxiom: (rec) =>
         newSystems = []
-        debugger
         for e in @lsViews
-            newSystems = newSystems.concat e.cropAxiom(rec)
+            newSystems = newSystems.concat e.cropAxiom(rec).lsViews
         return new MultiLSystemView newSystems
 
         
@@ -467,7 +470,158 @@ count = (str, chr) ->
         debugger
     return chunkStart: newStart, chunkEnd: newEnd, chunk: chunk, ruleNumber: ruleNumber
 
+getColor = (n) ->
+    start = 0
+    end = 50
+    hue = 224+(Math.abs n - 4) *15/9
+    hsv = hue:hue, sat:50, val:50
+    return hsv2rgb hsv
+
 lsystems =
+    'sandbox-logo':
+        axiom: 'X'
+        rules:
+            'X': '-----F++F[-F]++F++F---F-F++X'
+
+        preStep: (axiom, n) ->
+            if n == 0
+                return 'C0' + axiom
+            else
+                return axiom
+
+        postStep: (axiom, n) ->
+            return axiom[0..axiom.length-2] + 'C' + n + 'X'
+
+        renderFunctions:
+            'C0': (stack) ->
+                turtle = stack.peek()
+                turtle.ctx.strokeStyle = getColor(0)
+            'C1': (stack) ->
+                turtle = stack.peek()
+                turtle.ctx.strokeStyle = getColor(1)
+
+            'C2': (stack) ->
+                turtle = stack.peek()
+                turtle.ctx.strokeStyle = getColor(2)
+
+            'C3': (stack) ->
+                turtle = stack.peek()
+                turtle.ctx.strokeStyle = getColor(3)
+
+            'C4': (stack) ->
+                turtle = stack.peek()
+                turtle.ctx.strokeStyle = getColor(4)
+
+            'C5': (stack) ->
+                turtle = stack.peek()
+                turtle.ctx.strokeStyle = getColor(5)
+
+            'C6': (stack) ->
+                turtle = stack.peek()
+                turtle.ctx.strokeStyle = getColor(6)
+
+            'C7': (stack) ->
+                turtle = stack.peek()
+                turtle.ctx.strokeStyle = getColor(7)
+
+            'C8': (stack) ->
+                turtle = stack.peek()
+                turtle.ctx.strokeStyle = getColor(8)
+
+                
+            'X': (stack) ->
+                1
+
+            '+': (stack) ->
+                turtle = stack.peek()
+                turtle.left 45
+
+            '-': (stack) ->
+                turtle = stack.peek()
+                turtle.right 45
+
+
+            'F': (stack) ->
+                turtle = stack.peek()
+                turtle.forward 10
+
+            '[': (stack) ->
+                stack.peek().historyKeeper.saveState()
+                historyKeeper = new HistoryKeeper()
+                historyKeeper.setCurrentPosition stack.peek().historyKeeper.currentPosition
+                historyKeeper.currentAngle =  stack.peek().historyKeeper.currentAngle
+                turtle = new Turtle(historyKeeper)
+                stack.push turtle
+                turtle.ctx.save()
+
+            ']': (stack) ->
+                turtle = stack.pop()
+                turtle.ctx.restore()
+                turtle.historyKeeper.saveState()
+                stack.peek().historyKeeper.pop turtle.historyKeeper
+
+    'sandbox-tree':
+        axiom: 'S'
+
+        rules:
+            'X': '[--A+A][+A--A]-A++A-AA[+A--A]-A++A+A+A'
+            #'S': 'WX++X++X++X--W[T-T-S][S]T+T+S'
+            'S': 'WX++X++X++X--W[T-S]T+S'
+            'W': 'AAAAA'
+            'A': 'AA'
+
+        renderFunctions:
+            'T+': (stack) ->
+                turtle = stack.peek()
+                turtle.left 25
+
+            'T-': (stack) ->
+                turtle = stack.peek()
+                turtle.right 25
+
+            '+': (stack) ->
+                turtle = stack.peek()
+                turtle.left 45
+
+            '-': (stack) ->
+                turtle = stack.peek()
+                turtle.right 45
+
+            'S': (stack) ->
+                turtle = stack.peek()
+                turtle.forward 10
+
+            'W': (stack) ->
+                turtle = stack.peek()
+                turtle.forward 10
+
+            'X': (stack) ->
+                turtle = stack.peek()
+                turtle.forward 10
+
+            'A': (stack) ->
+                turtle = stack.peek()
+                turtle.forward 10
+
+            'F': (stack) ->
+                turtle = stack.peek()
+                turtle.forward 10
+
+            '[': (stack) ->
+                stack.peek().historyKeeper.saveState()
+                historyKeeper = new HistoryKeeper()
+                historyKeeper.setCurrentPosition stack.peek().historyKeeper.currentPosition
+                historyKeeper.currentAngle =  stack.peek().historyKeeper.currentAngle
+                turtle = new Turtle(historyKeeper)
+                stack.push turtle
+                turtle.ctx.save()
+
+            ']': (stack) ->
+                turtle = stack.pop()
+                turtle.ctx.restore()
+                turtle.historyKeeper.saveState()
+                stack.peek().historyKeeper.pop turtle.historyKeeper
+    
     'Sandbox Mandala':
         #axiom: '[--A+A][+A--A]-A++A-C1AA[+A--A]-A++A+A+A++[--A+A][+A--A]-A++A-C2AA[+A--A]-A++A+A+A++[--A+A][+A--A]-A++A-C3AA[+A--A]-A++A+A+A++[--A+A][+A--A]-A++A-C4AA[+A--A]-A++A+A+A--C1'
         axiom: '[--A+A][+A--A]-A++A-AA[+A--A]-A++A+A+A++[--A+A][+A--A]-A++A-AA[+A--A]-A++A+A+A++[--A+A][+A--A]-A++A-AA[+A--A]-A++A+A+A++[--A+A][+A--A]-A++A-AA[+A--A]-A++A+A+A--'
@@ -676,50 +830,33 @@ lsystems =
                 turtle = stack.peek()
                 turtle.right 20
 
-lsView = null
-initialise = ->
-    selectBox = document.getElementById 'systemselector'
-    for key in Object.keys(lsystems)
-        selectBox.options[selectBox.options.length] = new Option(key)
+drawFractal = (container, systemName) ->
+    lsView = new LSystemView(lsystems[systemName])
 
-    currentSystem = Object.keys(lsystems)[0]
-    lsView = new LSystemView(lsystems[currentSystem])
 
-    $("#submitButton").click =>
-            currentSystem = selectBox.value
-            lsView = new LSystemView(lsystems[currentSystem])
-            lsView.recompute()
-            lsView.redraw()
-            lsView.fitToCanvas()
-
-    $("#step").click =>
+    container.find("#step").click =>
             lsView.step()
             lsView.redraw()
             lsView.fitToCanvas()
 
-    canvas = $("#canvas")[0]
+    canvas = container.find('canvas')[0]
     ctx = canvas.getContext '2d'
 
-    transformState.xOffset = canvas.width / 2
-    transformState.yOffset = canvas.height / 2
-
-    zoomInButton = document.getElementById 'zoomIn'
-    zoomInButton.onclick = (event) ->
+    container.find('#zoomIn').click ->
         transformState.zoomIn 0.2
         ctx.scale transformState.zoomLevel, transformState.zoomLevel
         lsView.redraw()
 
-    zoomOutButton = document.getElementById 'zoomOut'
-    zoomOutButton.onclick = (event) ->
+    container.find('#zoomOut').click ->
         transformState.zoomOut 0.2
         ctx.scale transformState.zoomLevel, transformState.zoomLevel
         lsView.redraw()
 
 
-    $("#fitToCanvas").click ->
+    container.find("#fitToCanvas").click ->
         lsView.fitToCanvas()
 
-    $("#setZoom").click ->
+    container.find("#setZoom").click ->
         transformState.zoomLevel = parseFloat($("#zoom-factor").val())
         ctx.scale transformState.zoomLevel, transformState.zoomLevel
         lsView.redraw()
@@ -730,8 +867,6 @@ initialise = ->
 
     canvas.onmousedown = (event) ->
         moved = false
-        console.log event.offsetX
-        console.log event.offsetY
         rec.x0 = (event.offsetX - transformState.xOffset)/transformState.zoomLevel
         rec.y0 = (event.offsetY - transformState.yOffset)/transformState.zoomLevel
         clickdown = true
@@ -753,12 +888,10 @@ initialise = ->
 
         width = rec.x1 - rec.x0
         height = rec.y1 - rec.y0
-        canvas = document.getElementById("canvas")
         ctx = canvas.getContext '2d'
 
         ctx.fillStyle="#00FFFF"
         ctx.fillRect rec.x0, rec.y0, width, height
-        #console.log rec
         #return
         clickdown = false
         if Math.abs(rec.x0-rec.x1)*Math.abs(rec.y1-rec.y0) >= 5
@@ -769,6 +902,23 @@ initialise = ->
 
     lsView.recompute()
     lsView.redraw()
-    lsView.fitToCanvas()
+    return lsView
     
-initialise()
+lsView = null
+
+initialise = ->
+    selectBox = document.getElementById 'systemselector'
+    for key in Object.keys(lsystems)
+        selectBox.options[selectBox.options.length] = new Option(key)
+
+    currentSystem = Object.keys(lsystems)[0]
+    container = $(".container")
+    lsView = drawFractal container, currentSystem
+
+    container.find("#submitButton").click =>
+            currentSystem = selectBox.value
+            lsView = new LSystemView(lsystems[currentSystem])
+            lsView = drawFractal container, currentSystem
+            lsView.fitToCanvas()
+    
+    lsView.fitToCanvas()
