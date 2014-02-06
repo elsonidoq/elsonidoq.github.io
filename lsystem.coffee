@@ -586,6 +586,7 @@ lsystems =
                 stack.peek().historyKeeper.pop turtle.historyKeeper
     
     'sandbox-mandala-zommed':
+        maxLineWidth: 6
         axiom: '[A][-A][--A][---A][----A][-----A][------A][-------A]'
         rules:
             'S': 'FFFF[--A+A][+A--A]-A++A-AA[+A--A]-A++A+A+A++[--A+A][+A--A]-A++A-AA[+A--A]-A++A+A+A++[--A+A][+A--A]-A++A-AA[+A--A]-A++A+A+A++[--A+A][+A--A]-A++A-AA[+A--A]-A++A+A+A--FFFF'
@@ -656,6 +657,7 @@ lsystems =
 
     'sandbox-mandala':
         #axiom: '[--A+A][+A--A]-A++A-C1AA[+A--A]-A++A+A+A++[--A+A][+A--A]-A++A-C2AA[+A--A]-A++A+A+A++[--A+A][+A--A]-A++A-C3AA[+A--A]-A++A+A+A++[--A+A][+A--A]-A++A-C4AA[+A--A]-A++A+A+A--C1'
+        maxLineWidth: 5
         axiom: '[--A+A][+A--A]-A++A-AA[+A--A]-A++A+A+A++[--A+A][+A--A]-A++A-AA[+A--A]-A++A+A+A++[--A+A][+A--A]-A++A-AA[+A--A]-A++A+A+A++[--A+A][+A--A]-A++A-AA[+A--A]-A++A+A+A--'
         rules:
             #'X': '+F--A[+A]--A--A+++A+A'
@@ -878,12 +880,12 @@ drawFractal = (container, systemName, transformState=null, initialSteps=null) ->
     ctx = canvas.getContext '2d'
 
     container.find('#zoomIn').click ->
-        lsView.transformState.zoomIn 0.2
+        lsView.transformState.zoomIn 0.6
         ctx.scale lsView.transformState.zoomLevel, lsView.transformState.zoomLevel
         lsView.redraw()
 
     container.find('#zoomOut').click ->
-        lsView.transformState.zoomOut 0.2
+        lsView.transformState.zoomOut 0.6
         ctx.scale lsView.transformState.zoomLevel, lsView.transformState.zoomLevel
         lsView.redraw()
 

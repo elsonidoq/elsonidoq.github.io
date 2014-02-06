@@ -7,7 +7,7 @@
 	
     <link rel='stylesheet' href="css/bootstrap.min.css">
 
-    <link rel="stylesheet" href="http://24ways.anna.ps/04-icons/css/font-awesome.css">
+    <link rel="stylesheet" href="css/font-awesome.css">
 	<link rel="stylesheet" href="css/normalize.css" type="text/css">
 	<link rel="stylesheet" href="css/style.css" type="text/css">
 	
@@ -33,12 +33,12 @@
 	</div>-->
 
 	<div class="slide" style=" color: rgb(51,51,51); position: absolute; top: 0px; height:1200px">
-        <h2 style="font-family: Corben, Georgia, Times, serif; ">This is Pablo Zivic's WOW</h2>
-        <img src='yo3.png' style='width:500px'/>
+        <h2 style="font-family: Corben, Georgia, Times, serif; margin-top:-50px ">This is Pablo Zivic's WOW</h2>
+        <img src='yo3.png' style='margin-top:30px; width:500px'/>
 	</div>
 
 	<div class="slide" style="position: absolute; top: 1200px;">
-        <div style='margin-top:100px; margin-left: 100px; margin-right:100px; line-height:80px'>
+        <div style='margin-top:80px; margin-left: 100px; margin-right:100px; line-height:80px'>
         When I started to think about my WOW, I had two things in my mind.<br>
         I wanted it to be a mixture between <strong>what I am</strong> <br>
         and what I think <strong>Sandbox represents</strong>.
@@ -46,6 +46,7 @@
 	</div>
 
 	<div class="slide" id="what-I-am" style="position: absolute; top: 2000px;">
+        <h2 style="font-family: Corben, Georgia, Times, serif; margin-top:-50px ">So... What am I?</h2>
         <div style='margin-top:50px; margin-left: 100px; margin-right:100px'>
             <ul>I am a <strong>coder</strong> and </ul>
             <ul>I like to <strong>learn</strong>,</ul>
@@ -62,17 +63,17 @@
 	</div>
 
 	<div class="slide" style="position: absolute; top: 4000px;">
-        <div style='margin-top:30px; margin-left: 100px; margin-right:100px; line-height:80px'>
+        <div style='margin-top:-30px; margin-left: 100px; margin-right:100px; line-height:80px'>
             I want to represent Sandbox <br/>
             as something that <strong>emerges</strong> from the interaction of many small parts<br>
             that planted together as a <strong>seed</strong><br/>
             <strong>can grow into something much bigger</strong><br/>
-            but that also has an <strong>identity</strong> of its own.
+            but that also has an <strong>identity of its own</strong>.
         </div>
 	</div>
 
 	<div class="slide" style="position: absolute; top: 5000px;">
-        <div style='margin-top:80px; margin-left: 100px; margin-right:100px; line-height:80px'>
+        <div style='margin-top:30px; margin-left: 100px; margin-right:100px; line-height:80px'>
             So I <strong>talked</strong> with some friends<br/>
             and <strong>discovered</strong> <a href="http://en.wikipedia.org/wiki/L-system" target='_blank'>something new</a></br>
             I <strong>learned</strong>  it </br>
@@ -156,27 +157,27 @@
 	</div>
 
 	<div class="slide" id='sandbox-tree' style="position: absolute; top: 9500px;">
-        <div style='margin-left: 100px; margin-right:100px; margin-bottom:50px'>
+        <div style='margin-top:-80px; margin-left: 100px; margin-right:100px; margin-bottom:50px'>
             That can grow into a Tree ...
         </div>
 
         <div class="btn-group" style='position:relative; margin-bottom:10px'>
                 <button id="zoomIn" class="btn btn-default">
-                    <div class="glyphicon glyphicon-plus"></div>
+                    <div style='font-size:16px' class="glyphicon glyphicon-zoom-in"></div>
                 </button>
                 <button id="zoomOut" class="btn btn-default">
-                    <div class="glyphicon glyphicon-minus"></div>
+                    <div style='font-size:16px' class="glyphicon glyphicon-zoom-out"></div>
                 </button>
                 <button id="fitToCanvas" class="btn btn-default">
-                    Reset
+                    <span style='font-size:14px'> Reset </span>
                 </button>
-                <button id="step" class="btn btn-default">
+                <!--<button id="step" class="btn btn-default">
                     +1
-                </button>
+                </button>-->
 
         </div>
         <div>
-            <canvas id="canvas" height="300px" width="300px"></canvas>
+            <canvas id="canvas" height="400px" width="400px"></canvas>
         </div>
 	</div>
 
@@ -207,27 +208,27 @@
 
 
 	<div class="slide" id='sandbox-tree2' style="position: absolute; top: 10500px;">
-        <div style='margin-left: 100px; margin-right:100px; margin-bottom:50px'>
+        <div style='margin-top:-80px; margin-left: 100px; margin-right:100px; margin-bottom:50px'>
             ... or into more complex shapes ...
         </div>
 
         <div class="btn-group" style='position:relative; margin-bottom:10px'>
                 <button id="zoomIn" class="btn btn-default">
-                    <div class="glyphicon glyphicon-plus"></div>
+                    <div style='font-size:16px' class="glyphicon glyphicon-zoom-in"></div>
                 </button>
                 <button id="zoomOut" class="btn btn-default">
-                    <div class="glyphicon glyphicon-minus"></div>
+                    <div style='font-size:16px' class="glyphicon glyphicon-zoom-out"></div>
                 </button>
                 <button id="fitToCanvas" class="btn btn-default">
-                    Reset
+                    <span style='font-size:14px'> Reset </span>
                 </button>
-                <button id="step" class="btn btn-default">
+                <!--<button id="step" class="btn btn-default">
                     +1
-                </button>
+                </button>-->
 
         </div>
         <div>
-            <canvas id="canvas" height="300px" width="300px"></canvas>
+            <canvas id="canvas" height="400px" width="400px"></canvas>
         </div>
 	</div>
 
@@ -239,7 +240,7 @@
                 window.teseladoView = drawFractal($('#sandbox-tree2'), 'sandbox-teselado');
                 window.teseladoView.fitToCanvas();
                 v = 0;
-                setTimeout('stepInSandboxTeselado()', 150);
+                setTimeout('stepInSandboxTeselado()', 300);
             });
 
             function stepInSandboxTeselado() {
@@ -248,7 +249,7 @@
                     window.teseladoView.step();
                     window.teseladoView.redraw();
                     window.teseladoView.fitToCanvas();
-                    setTimeout('stepInSandboxTeselado()', 150);
+                    setTimeout('stepInSandboxTeselado()', 300);
                 }
             }
 
@@ -259,37 +260,37 @@
 
 
 	<div class="slide" style="position: absolute; top: 11500px;">
-        <div style='margin-left: 100px; margin-right:100px; margin-bottom:50px'>
-        But as I previously said, <br/>
-        I want it to have an <strong>identity</strong> of its own 
-        every seed yields a different plant, <br/>
-        ... but more importantly,<br/>
-
-        I want to represent Sandbox as a fixed
+        <div style='margin-top:30px; margin-left: 100px; margin-right:100px; margin-bottom:50px; line-height:80px'>
+            <strong>Each seed</strong> gives rise <br>
+            to <strong>a different</strong> plant <br/>
+            So I present the plant I built using Sandobx's seed<br/>
         </div>
     </div>
 
 	<div class="slide" id='sandbox-mandala' style="position: absolute; top: 12500px;">
-        <div style='margin-left: 100px; margin-right:100px; margin-bottom:50px'>
+        <div style='margin-top:-90px; margin-left: 100px; margin-right:100px; margin-bottom:30px'>
+            This is the Sandbox mandala, an infinite composition of the Sandbox logo<br/>
+            <strong>representing</strong> both <strong>all sandboxers</strong> building something bigger <br/>
+            and its transcending <strong>identity</strong>
         </div>
 
         <div class="btn-group" style='position:relative; margin-bottom:10px'>
                 <button id="zoomIn" class="btn btn-default">
-                    <div class="glyphicon glyphicon-plus"></div>
+                    <div style='font-size:16px' class="glyphicon glyphicon-zoom-in"></div>
                 </button>
                 <button id="zoomOut" class="btn btn-default">
-                    <div class="glyphicon glyphicon-minus"></div>
+                    <div style='font-size:16px' class="glyphicon glyphicon-zoom-out"></div>
                 </button>
                 <button id="fitToCanvas" class="btn btn-default">
-                    Reset
+                    <span style='font-size:14px'> Reset </span>
                 </button>
-                <button id="step" class="btn btn-default">
+                <!--<button id="step" class="btn btn-default">
                     +1
-                </button>
+                </button>-->
 
         </div>
         <div>
-            <canvas id="canvas" height="300px" width="300px"></canvas>
+            <canvas id="canvas" height="400px" width="400px"></canvas>
         </div>
 	</div>
 
@@ -302,8 +303,7 @@
                 window.mandalaView.fitToCanvas();
 
                 u = 0;
-                console.log('a')
-                setTimeout('stepInSandboxMandala()', 150);
+                setTimeout('stepInSandboxMandala()', 300);
             });
 
             var pixelZoomValue=1.0;
@@ -323,7 +323,6 @@
             function pixelZoom(imageData) {
                 var step = 1.03
                 pixelZoomValue*=step
-                console.log(pixelZoomValue)
 
                 var ctx = $("#sandbox-mandala canvas")[0].getContext("2d");
                 var newCanvas = $("<canvas>")
@@ -331,7 +330,7 @@
                         .attr("height", imageData.height)[0];
                 newCanvas.getContext('2d').putImageData(imageData, 0, 0);
                 ctx.scale(step,step)
-                ctx.translate(0,step*3.7)//imageData.height/2*step)
+                ctx.translate(0,step*4.8)//imageData.height/2*step)
 
                 var newYOffset = -mandalaView.transformState.yOffset
                 ctx.drawImage(newCanvas, -mandalaView.transformState.xOffset, newYOffset);
@@ -352,15 +351,20 @@
                     } else {
                         window.mandalaView.fitToCanvas();
                     }
-                    setTimeout('stepInSandboxMandala()', 150);
+                    setTimeout('stepInSandboxMandala()', 300);
                 } else if (u == 3 ) {
-                    doPixelZoom()
+                    setTimeout("doPixelZoom()", 300);
                 } else if (u == 4 ) {
                     window.mandalaView.clearCanvas()
                     window.mandalaView = drawFractal($('#sandbox-mandala'), 'sandbox-mandala-zommed',null, initialSteps=3);
                     window.mandalaView.fitToCanvas(1.5);
-                    setTimeout('stepInSandboxMandala()', 150);
+                    setTimeout('stepInSandboxMandala()', 300);
+                } else {
+                    /*setTimeout( function () {
+                        $("#sandbox-mandala").trigger('onEnter');
+                    }, 5000);*/
                 }
+
             }
 
         </script>
