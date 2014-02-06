@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<!-- saved from url=(0105)file://localhost/Users/pablozivic/Downloads/johnpolacek-scrolldeck.js-5b7f0d4/decks/responsive/index.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta charset="utf-8"> 
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+	<meta name="author" content="John Polacek">
+	<title>Pablo's WOW</title>
+	
+    <link rel='stylesheet' href="bootstrap/css/bootstrap.min.css">
+
+    <link href="http://24ways.anna.ps/04-icons/css/font-awesome.css" rel="stylesheet">
+	<link href="css/css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href="css/normalize.css" type="text/css">
+	<link rel="stylesheet" href="css/style.css" type="text/css">
+	
+	<script src="js/jquery-1.8.2.min.js"></script>
+	<script src="js/jquery.scrollTo-1.4.3.1.min.js"></script>
+	<script src="js/jquery.easing.1.3.js"></script>
+	<script src="js/jquery.scrollorama.js"></script>
+	<script src="js/jquery.scrolldeck.js"></script>
+    <script src="js/underscore.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="lsystem.js"></script>
+    <script src="wow.js"></script>
+
+</head>
+<body style="position: relative;"><div id="scroll-wrap"></div>
+	<div class="background"></div>
+	<!--<div id="header">
+		<h1>Pablo's WOW</h1>
+		<div id="nav">
+			<a href="file://localhost/Users/pablozivic/Downloads/johnpolacek-scrolldeck.js-5b7f0d4/decks/responsive/index.html#what1" class="nav-button">What</a>
+			<a href="file://localhost/Users/pablozivic/Downloads/johnpolacek-scrolldeck.js-5b7f0d4/decks/responsive/index.html#why1" class="nav-button">Why</a>
+			<a href="file://localhost/Users/pablozivic/Downloads/johnpolacek-scrolldeck.js-5b7f0d4/decks/responsive/index.html#who1" class="nav-button current">Who</a>
+			<a href="file://localhost/Users/pablozivic/Downloads/johnpolacek-scrolldeck.js-5b7f0d4/decks/responsive/index.html#when1" class="nav-button">When</a>
+			<a href="file://localhost/Users/pablozivic/Downloads/johnpolacek-scrolldeck.js-5b7f0d4/decks/responsive/index.html#how1" class="nav-button">How</a>
+			<a href="file://localhost/Users/pablozivic/Downloads/johnpolacek-scrolldeck.js-5b7f0d4/decks/responsive/index.html#where1" class="nav-button">Where</a>
+		</div>
+	</div>-->
+
+	<div class="slide" style=" color: rgb(51,51,51); position: absolute; top: 0px; height:1200px">
+        <h2 style="font-family: Corben, Georgia, Times, serif; ">This is Pablo Zivic's WOW</h2>
+        <img src='yo3.png' style='width:500px'/>
+	</div>
+
+	<div class="slide" style="position: absolute; top: 1200px;">
+        <div style='margin-top:100px; margin-left: 100px; margin-right:100px; line-height:80px'>
+        When I started to think about my WOW, I had two things in my mind.<br>
+        I wanted it to be a mixture between <strong>what I am</strong> <br>
+        and what I think <strong>Sandbox represents</strong>.
+        </div>
+	</div>
+
+	<div class="slide" style="position: absolute; top: 2000px;">
+        <div style='margin-top:50px; margin-left: 100px; margin-right:100px'>
+            <ul>I am a <strong>coder</strong> and </ul>
+            <ul>I like to <strong>learn</strong>,</ul>
+            <ul>to <strong>discover</strong> new things,</ul>
+            <ul>to <strong>talk</strong> with interesting people,</ul>
+            <ul>and to <strong>teach</strong></ul>
+        </div>
+	</div>
+
+	<div class="slide" style="position: absolute; top: 3000px;">
+        <div style='margin-top:200px; margin-left: 100px; margin-right:100px'>
+            and I believe that <strong> Sandbox </strong> is the place for those things to happen
+        </div>
+	</div>
+
+	<div class="slide" style="position: absolute; top: 4000px;">
+        <div style='margin-top:80px; margin-left: 100px; margin-right:100px; line-height:80px'>
+            I want to represent Sandbox <br/>
+            as something that <strong>emerges </strong> from the interaction of many small parts<br>
+            but that also has an <strong>identity</strong> of its own.
+        </div>
+	</div>
+
+	<div class="slide" style="position: absolute; top: 5000px;">
+        <div style='margin-top:80px; margin-left: 100px; margin-right:100px; line-height:80px'>
+            So I <strong>talked</strong> with some friends<br/>
+            and <strong>discovered</strong> <a href="http://en.wikipedia.org/wiki/L-system" target='_blank'>something new</a></br>
+            I <strong>learned</strong>  it </br>
+            and then I <strong>coded</strong> it </br>
+        </div>
+	</div>
+
+
+
+	<div class="slide" style="position: absolute; top: 6000px;">
+        <div style='margin-top:30px; line-height: 80px; margin-left: 100px; margin-right:100px'>
+            So I decided to represent this as a fractal <br> 
+            and show that the <strong>union of small principles</strong> <br> 
+            planted together as a <strong>seed</strong><br/>
+            <strong>can grow into something much bigger</strong>
+        </div>
+	</div>
+
+
+	<div class="slide" id='sandbox-logo' style="position: absolute; top: 7000px;">
+        <div style='margin-left: 100px; margin-right:100px'>
+            I realized that the Sandbox logo can be described in a very mathematical synthetic way 
+        </div>
+        <div>
+            <canvas style='margin-top:50px' height="300px" width="300px"></canvas>
+            <div style='text-align:left; margin-top:20px; margin-left: 40%; color: #555; font-size:50%'>
+            Axiom: X<br>
+            Rule: X = -----F++F[-F]++F++F---F-F++X
+            </div>
+        </div>
+        <script type='text/javascript'>
+            $("#sandbox-logo canvas")[0].getContext('2d').scale(1,1);
+
+            var n=0;
+            var showLogoAnimation = false;
+            $("#sandbox-logo").bind("onEnter", function() {
+                showLogoAnimation = true;
+                drawSandboxLogo();
+            });
+
+            $("#sandbox-logo").bind("onLeave", function() {
+                showLogoAnimation = false;
+            });
+
+            function drawSandboxLogo() {
+                var transformState = new TransformState();
+                transformState.zoomLevel= 5.59;
+                transformState.yOffset=15;
+                transformState.xOffset=150;
+                window.logoView = drawFractal($('#sandbox-logo'), 'sandbox-logo', transformState=transformState);
+                if (showLogoAnimation) {
+                    setTimeout('stepInSandboxLogo()', 350);
+                }
+                n=0;
+            }
+
+            function stepInSandboxLogo() {
+                n++;
+                if(n == 8) {
+                    if (showLogoAnimation) {
+                        setTimeout('drawSandboxLogo()', 550);
+                    }
+                } else {
+                    window.logoView.step();
+                    window.logoView.redraw();
+                    if (showLogoAnimation) {
+                        setTimeout('stepInSandboxLogo()', 350);
+                    }
+                }
+            }
+
+
+        </script>
+	</div>
+
+
+	<div class="slide" style=" background: url('dandelion-flying-seeds-nature-photo-wallpaper-1920x1200.png');position: absolute; top: 8000px;">
+        <div style="font-size:150%; color: white; margin-top:100px; margin-left: 100px; margin-right:100px">
+            That is the <strong>seed</strong></br>
+        </div>
+	</div>
+
+	<div class="slide" id='sandbox-tree' style="position: absolute; top: 9500px;">
+        <div style='margin-left: 100px; margin-right:100px; margin-bottom:50px'>
+            That can grow into a Tree ...
+        </div>
+
+        <div class="btn-group" style='position:relative; margin-bottom:10px'>
+                <button id="zoomIn" class="btn btn-default">
+                    <div class="glyphicon glyphicon-plus"></div>
+                </button>
+                <button id="zoomOut" class="btn btn-default">
+                    <div class="glyphicon glyphicon-minus"></div>
+                </button>
+                <button id="fitToCanvas" class="btn btn-default">
+                    Reset
+                </button>
+                <button id="step" class="btn btn-default">
+                    +1
+                </button>
+
+        </div>
+        <div>
+            <canvas id="canvas" height="300px" width="300px"></canvas>
+        </div>
+	</div>
+
+        <script type='text/javascript'>
+            
+            $("#sandbox-tree canvas")[0].getContext('2d').scale(1,1);
+            var t=0;
+            $("#sandbox-tree").bind('onEnter', function() {
+                window.treeView = drawFractal($('#sandbox-tree'), 'sandbox-tree');
+                window.treeView.fitToCanvas();
+                t=0;
+                setTimeout('stepInSandboxTree()', 500);
+            });
+            function stepInSandboxTree() {
+                t++;
+                if(t < 7) {
+                    window.treeView.step();
+                    window.treeView.redraw();
+                    window.treeView.fitToCanvas();
+                    setTimeout('stepInSandboxTree()', 500);
+                }
+            }
+
+        </script>
+        
+        
+	</div>
+
+
+	<div class="slide" id='sandbox-tree2' style="position: absolute; top: 10500px;">
+        <div style='margin-left: 100px; margin-right:100px; margin-bottom:50px'>
+            ... or into more complex shapes ...
+        </div>
+
+        <div class="btn-group" style='position:relative; margin-bottom:10px'>
+                <button id="zoomIn" class="btn btn-default">
+                    <div class="glyphicon glyphicon-plus"></div>
+                </button>
+                <button id="zoomOut" class="btn btn-default">
+                    <div class="glyphicon glyphicon-minus"></div>
+                </button>
+                <button id="fitToCanvas" class="btn btn-default">
+                    Reset
+                </button>
+                <button id="step" class="btn btn-default">
+                    +1
+                </button>
+
+        </div>
+        <div>
+            <canvas id="canvas" height="300px" width="300px"></canvas>
+        </div>
+	</div>
+
+        <script type='text/javascript'>
+            
+            $("#sandbox-tree2 canvas")[0].getContext('2d').scale(1,1);
+            var v=0;
+            $("#sandbox-tree2").bind('onEnter', function() {
+                window.teseladoView = drawFractal($('#sandbox-tree2'), 'sandbox-teselado');
+                window.teseladoView.fitToCanvas();
+                v = 0;
+                setTimeout('stepInSandboxTeselado()', 150);
+            });
+
+            function stepInSandboxTeselado() {
+                v++;
+                if(v < 6) {
+                    window.teseladoView.step();
+                    window.teseladoView.redraw();
+                    window.teseladoView.fitToCanvas();
+                    setTimeout('stepInSandboxTeselado()', 150);
+                }
+            }
+
+        </script>
+        
+        
+	</div>
+
+
+	<div class="slide" style="position: absolute; top: 11500px;">
+        <div style='margin-left: 100px; margin-right:100px; margin-bottom:50px'>
+        every seed yields a different plant, <br/>
+        ... but more importantly,<br/>
+
+        I want to represent Sandbox as a fixed
+        </div>
+    </div>
+
+	<div class="slide" id='sandbox-mandala' style="position: absolute; top: 12500px;">
+        <div style='margin-left: 100px; margin-right:100px; margin-bottom:50px'>
+        </div>
+
+        <div class="btn-group" style='position:relative; margin-bottom:10px'>
+                <button id="zoomIn" class="btn btn-default">
+                    <div class="glyphicon glyphicon-plus"></div>
+                </button>
+                <button id="zoomOut" class="btn btn-default">
+                    <div class="glyphicon glyphicon-minus"></div>
+                </button>
+                <button id="fitToCanvas" class="btn btn-default">
+                    Reset
+                </button>
+                <button id="step" class="btn btn-default">
+                    +1
+                </button>
+
+        </div>
+        <div>
+            <canvas id="canvas" height="300px" width="300px"></canvas>
+        </div>
+	</div>
+
+        <script type='text/javascript'>
+            
+            $("#sandbox-mandala canvas")[0].getContext('2d').scale(1,1);
+            var u=0;
+            $("#sandbox-mandala").bind('onEnter', function() {
+                window.mandalaView = drawFractal($('#sandbox-mandala'), 'sandbox-mandala');
+                window.mandalaView.fitToCanvas();
+
+                u = 0;
+                console.log('a')
+                setTimeout('stepInSandboxMandala()', 150);
+            });
+
+            var pixelZoomValue=1.0;
+            function doPixelZoom() {
+                var canvas = $("#sandbox-mandala canvas")[0]
+                var ctx = canvas.getContext("2d");
+
+                var imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                mandalaView.clearCanvas();
+                //ctx.setTransform(mandalaView.transformState.zoomLevel, 0, 0, mandalaView.transformState.zoomLevel, mandalaView.transformState.xOffset, mandalaView.transformState.yOffset)
+                ctx.scale(1/mandalaView.transformState.zoomLevel,1/mandalaView.transformState.zoomLevel)
+                pixelZoomValue=1.0;
+                pixelZoom(imageData);
+                return imageData;
+            }
+
+            function pixelZoom(imageData) {
+                var step = 1.03
+                pixelZoomValue*=step
+                console.log(pixelZoomValue)
+
+                var ctx = $("#sandbox-mandala canvas")[0].getContext("2d");
+                var newCanvas = $("<canvas>")
+                        .attr("width", imageData.width)
+                        .attr("height", imageData.height)[0];
+                newCanvas.getContext('2d').putImageData(imageData, 0, 0);
+                ctx.scale(step,step)
+                ctx.translate(0,step*3.7)//imageData.height/2*step)
+
+                var newYOffset = -mandalaView.transformState.yOffset
+                ctx.drawImage(newCanvas, -mandalaView.transformState.xOffset, newYOffset);
+                if(pixelZoomValue < 3.9) {
+                    setTimeout(function() {pixelZoom(imageData)}, 30);
+                } else {
+                    stepInSandboxMandala();
+                }
+
+            }
+            function stepInSandboxMandala() {
+                u++;
+                if(u < 3 || (u>4 && u < 6)) {
+                    window.mandalaView.step();
+                    window.mandalaView.redraw();
+                    if(u>4) {
+                        window.mandalaView.fitToCanvas(1.5);
+                    } else {
+                        window.mandalaView.fitToCanvas();
+                    }
+                    setTimeout('stepInSandboxMandala()', 150);
+                } else if (u == 3 ) {
+                    doPixelZoom()
+                } else if (u == 4 ) {
+                    window.mandalaView.clearCanvas()
+                    window.mandalaView = drawFractal($('#sandbox-mandala'), 'sandbox-mandala-zommed',null, initialSteps=3);
+                    window.mandalaView.fitToCanvas(1.5);
+                    setTimeout('stepInSandboxMandala()', 150);
+                }
+            }
+
+        </script>
+        
+        
+	</div>
+	
+	
+	
+	<script>
+		$(document).ready(function() {
+			
+	        window.deck = new $.scrolldeck({
+				buttons: '.nav-button',
+				easing: 'easeInOutExpo'
+			});
+
+	     var slides = $(deck.settings.slides);
+         //scrollToSlide($(slides[0]));
+         $(slides[deck.controller.blockIndex]).trigger('onEnter');
+
+
+         $(document).on('keydown', function(e){
+                var nextSlide;
+                var currentSlide = deck.controller.blockIndex
+				if ((e.keyCode == 37 || e.keyCode == 38) && currentSlide !== 0) {
+                    nextSlide = currentSlide-1;
+				}
+				// down/right arrow, space = scroll down
+				else if ((e.keyCode == 39 || e.keyCode == 32 || e.keyCode == 40) && deck.controller.blockIndex != slides.length-1) {
+                    nextSlide = currentSlide+1;
+				} else {
+                    return
+                }
+
+                setTimeout(function() {$(slides[currentSlide]).trigger('onLeave');}, 600);
+                setTimeout(function() {$(slides[nextSlide]).trigger('onEnter');}, 600);
+			});
+
+         function scrollToSlide(slide) {
+			$(window)._scrollable().stop();
+			$(window).scrollTo(slide, {
+				duration: deck.settings.duration,
+				easing: deck.settings.easing,
+				offset: deck.settings.offset
+			});
+		}
+			
+		});
+	</script>
+
+
+</body></html>

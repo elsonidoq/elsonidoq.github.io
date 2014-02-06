@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="UTF-8">
+  <title>CoffeeScript Lindenmayer System</title>
+  <meta name="author" content="Martin Foot">
+  <meta name="description" content="An l-system implementation using
+  CoffeeScript and the HTML Canvas element">
+  <meta name="keywords" content="coffeescript,l-system">
+  <link rel="stylesheet" href="css/bootstrap.css">
+ </head>
+ <body>
+     <div class="container">
+         <header>
+            <h1>An interactive L-System implementation written in CoffeeScript</h1>
+            <p class="lead">by Martin Foot</p>
+        </header>
+        <form action="#" class="well form-inline">
+            <label class="">Select system:</label>
+            <select id="systemselector"></select>
+            <input id="numIterations" type="text" class="input-medium" placeholder="Number of generations" />
+            <button id="submitButton" class="btn" target="#">Submit</button>
+        </form>
+        <p><a href="http://en.wikipedia.org/wiki/L-system">Lindenmayer
+            systems</a> describe a variant of a formal grammar that describes
+        state progressions between iterations combined with a set of axioms, or
+        an initial state.</p>
+        <div class="row">
+            <div class="span12">
+                <button id="zoomIn" class="btn btn-default">
+                    <div class="glyphicon glyphicon-plus"></div>
+                </button>
+                <button id="zoomOut" class="btn btn-default">
+                    <div class="glyphicon glyphicon-minus"></div>
+                </button>
+                <input type="text" id="zoom-factor"/>
+                <button id="setZoom" class="btn btn-default">
+                    set zoom
+                </button>
+                <button id="fitToCanvas" class="btn btn-default">
+                    Fit to canvas
+                </button>
+                <!--<button id="panLeft" class="btn btn-default">
+                    <div class="glyphicon glyphicon-chevron-left"></div>
+                </button>
+                <button id="panRight" class="btn btn-default">
+                    <div class="glyphicon glyphicon-chevron-right"></div>
+                </button>
+                <button id="panUp" class="btn btn-default">
+                    <div class="glyphicon glyphicon-chevron-up"></div>
+                </button>
+                <button id="panDown" class="btn btn-default">
+                    <div class="glyphicon glyphicon-chevron-right"></div>
+                </button>-->
+                <a id="step" class="btn btn-default">
+                    +1
+                </a>
+
+                <a id="download" class="btn btn-default" download="a.png">
+                    <div class="glyphicon glyphicon-download"></div>
+                </a>
+            </div>
+        </div>
+	<div>
+            <canvas id="canvas" class="span12" height="500px" width="500px"></canvas>
+	</div>
+    </div>
+    <style type="text/css">
+        canvas {
+            margin: auto;
+            border: 1px solid #ccc;
+        }
+        div.btn-group.span12 {
+            position: relative;
+            top: 28px;
+        }
+    </style>
+    <script src="jquery.js"></script>
+    <script src="underscore.js"></script>
+    <script src="wow.js"></script>
+    <script src="lsystem.js"></script>
+    <script type='text/javascript'>
+        initialise();
+    </script>
+ </body>
+</html>
+
