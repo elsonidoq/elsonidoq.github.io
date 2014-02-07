@@ -326,16 +326,23 @@ Two other things that you should know about me are that I'm a <strong>percussion
             
             $("#sandbox-mandala canvas")[0].getContext('2d').scale(1,1);
             var u=0;
+            $("#sandbox-mandala").bind('onLeave', function() {
+                continueMandalaAnimation = false;
+            });
+
             $("#sandbox-mandala").bind('onEnter', function() {
                 window.mandalaView = drawFractal($('#sandbox-mandala'), 'sandbox-mandala', null, null, '#f4f1e5', '#3ebae5');
+                continueMandalaAnimation = true;
                 window.mandalaView.fitToCanvas();
 
                 u = 0;
                 setTimeout('stepInSandboxMandala()', 300);
             });
 
+            var continueMandalaAnimation = false;
             var pixelZoomValue=1.0;
             function doPixelZoom() {
+                if(!continueMandalaAnimation) return;
                 var canvas = $("#sandbox-mandala canvas")[0]
                 var ctx = canvas.getContext("2d");
 
@@ -349,6 +356,7 @@ Two other things that you should know about me are that I'm a <strong>percussion
             }
 
             function pixelZoom(imageData) {
+                if(!continueMandalaAnimation) return;
                 var step = 1.03
                 pixelZoomValue*=step
 
@@ -376,7 +384,7 @@ Two other things that you should know about me are that I'm a <strong>percussion
                             window.mandalaView = drawFractal($('#sandbox-mandala'), 'sandbox-mandala', null, 2, '#f4f1e5', '#3ebae5');
                             window.mandalaView.fitToCanvas();
 
-                            u = 2;
+                            u = 1;
                             setTimeout('stepInSandboxMandala()', 300);
                         }, 300);
                     }
@@ -385,6 +393,7 @@ Two other things that you should know about me are that I'm a <strong>percussion
 
             }
             function stepInSandboxMandala() {
+                if(!continueMandalaAnimation) return;
                 u++;
                 if(u < 3 || (u>4 && u < 6)) {
                     window.mandalaView.step();
@@ -461,11 +470,11 @@ Two other things that you should know about me are that I'm a <strong>percussion
 
 	<div class="slide" style="position: absolute; top: 13500px;">
         <div style='margin-top:-30px; margin-left: 100px; margin-right:100px; margin-bottom:50px; line-height:80px'>
-            I hope you enjoyed my application as much as I enjoyed preparing it. <br/>
+            I hope you have enjoyed my application as much as I did preparing it. <br/>
             But above all, I hope that I have managed to transmit in this webpage <br/>
             my desire be part of this incredible network <br/>
-            and continuing learning, meeting people, discovering things, teaching and more importantly<br/>
-            <strong style='font-size:150%'> creating something new</strong>
+            and continue learning, meeting people, discovering things, teaching and more importantly<br/>
+            <div style='margin-top:20px;'> <strong style='font-size:150%'> creating something new with you</strong></div>
         </div>
     </div>
 
