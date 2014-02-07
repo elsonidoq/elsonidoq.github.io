@@ -358,14 +358,29 @@ Two other things that you should know about me are that I'm a <strong>percussion
                         .attr("height", imageData.height)[0];
                 newCanvas.getContext('2d').putImageData(imageData, 0, 0);
                 ctx.scale(step,step)
-                ctx.translate(0,step*4.8)//imageData.height/2*step)
+                if(u > 4) {
+                    ctx.translate(0,step*5.6)//imageData.height/2*step)
+                } else {
+                    ctx.translate(0,step*4.8)//imageData.height/2*step)
+                }
 
                 var newYOffset = -mandalaView.transformState.yOffset
                 ctx.drawImage(newCanvas, -mandalaView.transformState.xOffset, newYOffset);
                 if(pixelZoomValue < 3.9) {
                     setTimeout(function() {pixelZoom(imageData)}, 30);
                 } else {
-                    stepInSandboxMandala();
+                    if (u < 6) {
+                        stepInSandboxMandala();
+                    } else {
+                        setTimeout(function() {
+                            window.mandalaView = drawFractal($('#sandbox-mandala'), 'sandbox-mandala', null, 3, '#f4f1e5', '#3ebae5');
+                            window.mandalaView.fitToCanvas();
+
+                            u = 2;
+                            setTimeout('stepInSandboxMandala()', 300);
+                        }, 300);
+                    }
+
                 }
 
             }
@@ -388,9 +403,9 @@ Two other things that you should know about me are that I'm a <strong>percussion
                     window.mandalaView.fitToCanvas(1.5);
                     setTimeout('stepInSandboxMandala()', 300);
                 } else {
-                    /*setTimeout( function () {
-                        $("#sandbox-mandala").trigger('onEnter');
-                    }, 5000);*/
+                    setTimeout("doPixelZoom()", 300);
+
+
                 }
 
             }
