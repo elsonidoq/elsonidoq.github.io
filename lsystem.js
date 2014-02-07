@@ -112,7 +112,10 @@ Stack = (function() {
 })();
 
 LSystem = (function() {
-  function LSystem(hash, canvas) {
+  function LSystem(hash, canvas, lineColor) {
+    if (lineColor == null) {
+      lineColor = null;
+    }
     this.canvas = canvas;
     this.axiom = hash.axiom;
     this.rules = hash.rules;
@@ -122,6 +125,7 @@ LSystem = (function() {
     this.stack = new Stack(this.axiom, this.rules, this.renderFunctions);
     this.stack.push(new Turtle(new HistoryKeeper(), canvas = canvas));
     this.stepNumber = 0;
+    this.lineColor = lineColor || '#FFF';
   }
 
   LSystem.prototype.step = function() {
@@ -150,7 +154,7 @@ LSystem = (function() {
     var ctx, i, n, renderFunc, symbol, _i, _ref;
     n = 0;
     ctx = this.canvas.getContext('2d');
-    ctx.strokeStyle = '#FFF';
+    ctx.strokeStyle = this.lineColor;
     symbol = '';
     for (i = _i = 0, _ref = this.axiom.length - 1; 0 <= _ref ? _i <= _ref : _i >= _ref; i = 0 <= _ref ? ++_i : --_i) {
       symbol += this.axiom[i];
@@ -229,12 +233,12 @@ TransformState = (function() {
   };
 
   TransformState.prototype.zoomOut = function(amount) {
-    this.changeZoomLevel(this.zoomLevel * 0.9);
+    this.changeZoomLevel(this.zoomLevel * amount);
     return $("#zoom-factor").val(this.zoomLevel);
   };
 
   TransformState.prototype.zoomIn = function(amount) {
-    this.changeZoomLevel(this.zoomLevel / 0.9);
+    this.changeZoomLevel(this.zoomLevel / amount);
     return $("#zoom-factor").val(this.zoomLevel);
   };
 
@@ -249,7 +253,7 @@ TransformState = (function() {
 })();
 
 LSystemView = (function() {
-  function LSystemView(systemSpec, canvas, transformState, maxLineWidth) {
+  function LSystemView(systemSpec, canvas, transformState, maxLineWidth, backgroundColor, lineColor) {
     if (canvas == null) {
       canvas = null;
     }
@@ -258,6 +262,12 @@ LSystemView = (function() {
     }
     if (maxLineWidth == null) {
       maxLineWidth = null;
+    }
+    if (backgroundColor == null) {
+      backgroundColor = null;
+    }
+    if (lineColor == null) {
+      lineColor = null;
     }
     this.getImage = __bind(this.getImage, this);
     this.fitToCanvas = __bind(this.fitToCanvas, this);
@@ -270,18 +280,20 @@ LSystemView = (function() {
     this.system = null;
     this.transformState = transformState || new TransformState();
     this.maxLineWidth = maxLineWidth;
+    this.backgroundColor = backgroundColor || 'black';
+    this.lineColor = lineColor;
     this;
   }
 
   LSystemView.prototype.recompute = function(hash, numIterations) {
-    var canvas, num, _i, _results;
+    var num, _i, _results;
     if (hash == null) {
       hash = null;
     }
     if (numIterations == null) {
       numIterations = null;
     }
-    this.system = new LSystem(this.systemSpec, canvas = this.canvas);
+    this.system = new LSystem(this.systemSpec, this.canvas, this.lineColor);
     if (hash != null) {
       this.system.axiom = hash;
     }
@@ -305,7 +317,7 @@ LSystemView = (function() {
     width = this.canvas.width / this.transformState.zoomLevel;
     height = this.canvas.height / this.transformState.zoomLevel;
     ctx.setTransform(this.transformState.zoomLevel, 0, 0, this.transformState.zoomLevel, this.transformState.xOffset, this.transformState.yOffset);
-    ctx.fillStyle = 'black';
+    ctx.fillStyle = this.backgroundColor;
     return ctx.fillRect(topX, topY, width, height);
   };
 
@@ -1077,7 +1089,7 @@ defaultSystem = lsystems = {
   }
 };
 
-drawFractal = function(container, systemName, transformState, initialSteps) {
+drawFractal = function(container, systemName, transformState, initialSteps, backgroundColor, lineColor) {
   var canvas, ctx, dragging, lsView, maxLineWidth, previousX, previousY;
   if (transformState == null) {
     transformState = null;
@@ -1085,12 +1097,18 @@ drawFractal = function(container, systemName, transformState, initialSteps) {
   if (initialSteps == null) {
     initialSteps = null;
   }
+  if (backgroundColor == null) {
+    backgroundColor = null;
+  }
+  if (lineColor == null) {
+    lineColor = null;
+  }
   canvas = container.find('canvas')[0];
   maxLineWidth = null;
   if (lsystems[systemName].maxLineWidth != null) {
     maxLineWidth = lsystems[systemName].maxLineWidth;
   }
-  lsView = new LSystemView(lsystems[systemName], canvas = canvas, transformState = transformState, maxLineWidth = maxLineWidth);
+  lsView = new LSystemView(lsystems[systemName], canvas, transformState, maxLineWidth, backgroundColor, lineColor);
   container.find("#step").click((function(_this) {
     return function() {
       lsView.step();

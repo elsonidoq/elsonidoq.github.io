@@ -74,7 +74,7 @@ class Stack
 class LSystem
     # A representation of a single L system.
 
-    constructor: (hash, canvas) ->
+    constructor: (hash, canvas, lineColor=null) ->
 
         @canvas= canvas
         @axiom = hash.axiom
@@ -85,6 +85,7 @@ class LSystem
         @stack = new Stack(@axiom, @rules, @renderFunctions)
         @stack.push new Turtle(new HistoryKeeper(), canvas=canvas)
         @stepNumber = 0
+        @lineColor = lineColor or '#FFF'
 
     step: () ->
         buffer = ''
@@ -111,7 +112,7 @@ class LSystem
     render: () ->
         n = 0
         ctx = @canvas.getContext '2d'
-        ctx.strokeStyle = '#FFF'
+        ctx.strokeStyle = @lineColor
 
         #console.log @axiom.length
         symbol = ''
@@ -179,11 +180,11 @@ class TransformState
         @zoomLevel = newZoom
 
     zoomOut: (amount) ->
-        @changeZoomLevel @zoomLevel*0.9
+        @changeZoomLevel @zoomLevel*amount
         $("#zoom-factor").val @zoomLevel
 
     zoomIn: (amount) ->
-        @changeZoomLevel @zoomLevel/0.9
+        @changeZoomLevel @zoomLevel/amount
         $("#zoom-factor").val @zoomLevel
         
     xOffset: 0
@@ -192,16 +193,18 @@ class TransformState
 
 
 class LSystemView
-    constructor: (systemSpec, canvas=null, transformState=null, maxLineWidth=null) ->
+    constructor: (systemSpec, canvas=null, transformState=null, maxLineWidth=null, backgroundColor=null, lineColor=null) ->
         @canvas=canvas
         @systemSpec = systemSpec
         @system = null
         @transformState = transformState or new TransformState()
         @maxLineWidth = maxLineWidth
+        @backgroundColor = backgroundColor or 'black'
+        @lineColor = lineColor
         @
     
     recompute: (hash = null, numIterations=null) =>
-        @system = new LSystem(@systemSpec, canvas=@canvas)
+        @system = new LSystem(@systemSpec, @canvas, @lineColor)
         if hash?
             @system.axiom = hash
 
@@ -222,7 +225,7 @@ class LSystemView
         height = @canvas.height / @transformState.zoomLevel
 
         ctx.setTransform(@transformState.zoomLevel, 0, 0, @transformState.zoomLevel, @transformState.xOffset, @transformState.yOffset)
-        ctx.fillStyle = 'black'
+        ctx.fillStyle = @backgroundColor
         ctx.fillRect topX, topY, width, height
 
     redraw: (clearCanvas = true) =>
@@ -864,13 +867,13 @@ lsystems =
                 turtle = stack.peek()
                 turtle.right 20
 
-drawFractal = (container, systemName, transformState=null, initialSteps=null) ->
+drawFractal = (container, systemName, transformState=null, initialSteps=null, backgroundColor=null, lineColor=null) ->
     canvas = container.find('canvas')[0]
     maxLineWidth = null
     if lsystems[systemName].maxLineWidth?
         maxLineWidth = lsystems[systemName].maxLineWidth
 
-    lsView = new LSystemView(lsystems[systemName], canvas=canvas, transformState=transformState, maxLineWidth=maxLineWidth)
+    lsView = new LSystemView(lsystems[systemName], canvas, transformState, maxLineWidth, backgroundColor, lineColor)
 
     container.find("#step").click =>
             lsView.step()
